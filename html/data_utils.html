@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core functionality &mdash; data-utils 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pre-built pipelines to quickly get started with data" href="data_utils.default_pipelines.html" />
+    <link rel="prev" title="Welcome to data-utils’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            data-utils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-data_utils.fetch">Downloading content from the internet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.fetch.df_from_json_file"><code class="docutils literal notranslate"><span class="pre">df_from_json_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.fetch.fetch"><code class="docutils literal notranslate"><span class="pre">fetch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.fetch.labels_from_skos"><code class="docutils literal notranslate"><span class="pre">labels_from_skos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.fetch.labels_from_uris"><code class="docutils literal notranslate"><span class="pre">labels_from_uris()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-data_utils.defaults">Useful defaults, e.g. for metadata fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.defaults.Fields"><code class="docutils literal notranslate"><span class="pre">Fields</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.COLLECTIONS"><code class="docutils literal notranslate"><span class="pre">Fields.COLLECTIONS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.DESCRIPTION"><code class="docutils literal notranslate"><span class="pre">Fields.DESCRIPTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.EDUCATIONAL_CONTEXT"><code class="docutils literal notranslate"><span class="pre">Fields.EDUCATIONAL_CONTEXT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.FSK_RATING"><code class="docutils literal notranslate"><span class="pre">Fields.FSK_RATING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.ID"><code class="docutils literal notranslate"><span class="pre">Fields.ID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.LANGUAGE"><code class="docutils literal notranslate"><span class="pre">Fields.LANGUAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.TAXONID"><code class="docutils literal notranslate"><span class="pre">Fields.TAXONID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data_utils.defaults.Fields.TITLE"><code class="docutils literal notranslate"><span class="pre">Fields.TITLE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#definition-and-utilities-for-interacting-with-fundamental-data">Definition and utilities for interacting with fundamental data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.data.get_in"><code class="docutils literal notranslate"><span class="pre">get_in()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.data.get_leaves"><code class="docutils literal notranslate"><span class="pre">get_leaves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.data.get_terminal_in"><code class="docutils literal notranslate"><span class="pre">get_terminal_in()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utilities-for-filtering-individual-fundamental-data-points">Utilities for filtering individual fundamental data points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.existing_text_filter"><code class="docutils literal notranslate"><span class="pre">existing_text_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.german_filter"><code class="docutils literal notranslate"><span class="pre">german_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_filter"><code class="docutils literal notranslate"><span class="pre">get_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_filter_with_basic_predicate"><code class="docutils literal notranslate"><span class="pre">get_filter_with_basic_predicate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_labeled_filter"><code class="docutils literal notranslate"><span class="pre">get_labeled_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_language_filter"><code class="docutils literal notranslate"><span class="pre">get_language_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_len_filter"><code class="docutils literal notranslate"><span class="pre">get_len_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_predicate_on_terminal"><code class="docutils literal notranslate"><span class="pre">get_predicate_on_terminal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.get_test_data_filter"><code class="docutils literal notranslate"><span class="pre">get_test_data_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.kibana_basic_filter"><code class="docutils literal notranslate"><span class="pre">kibana_basic_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.kibana_publicly_visible"><code class="docutils literal notranslate"><span class="pre">kibana_publicly_visible()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.kibana_redaktionsbuffet"><code class="docutils literal notranslate"><span class="pre">kibana_redaktionsbuffet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.filters.negated"><code class="docutils literal notranslate"><span class="pre">negated()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utilities-for-transforming-values-in-fundamental-data">Utilities for transforming values in fundamental data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.transform.as_boolean_array"><code class="docutils literal notranslate"><span class="pre">as_boolean_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.transform.change_multi_value"><code class="docutils literal notranslate"><span class="pre">change_multi_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.transform.change_single_value"><code class="docutils literal notranslate"><span class="pre">change_single_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data_utils.transform.with_changed_value"><code class="docutils literal notranslate"><span class="pre">with_changed_value()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_utils.default_pipelines.html">Pre-built pipelines to quickly get started with data</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">data-utils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Core functionality</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/data_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-functionality">
+<h1>Core functionality<a class="headerlink" href="#core-functionality" title="Link to this heading"></a></h1>
+<section id="module-data_utils.fetch">
+<span id="downloading-content-from-the-internet"></span><h2>Downloading content from the internet<a class="headerlink" href="#module-data_utils.fetch" title="Link to this heading"></a></h2>
+<p>Module for downloading content from the internet.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.fetch.df_from_json_file">
+<span class="sig-prename descclassname"><span class="pre">data_utils.fetch.</span></span><span class="sig-name descname"><span class="pre">df_from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_source'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.filter.Filter</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Basic_Value_Not_None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remapped_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Basic_Value_Not_None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">data_utils.data.Basic_Value</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#data_utils.fetch.df_from_json_file" title="Link to this definition"></a></dt>
+<dd><p>Read the given line separated json file and turn it into a data frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>Path</em>) – The path to the json file to process.</p></li>
+<li><p><strong>columns</strong> (<em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – The fields to keep from the json.
+If given as a dictionary, use the keys as the column names
+in the final data frame.
+Individual fields are split by the key separator for nested accesses.</p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – The fields to prefix any access with.
+Useful when all interesting data is contained within a nested object.
+Split by the key separator for nested accesses.</p></li>
+<li><p><strong>key_separator</strong> (<em>str</em>) – <p>The sub string that denotes that we are accessing
+a nested json object.</p>
+<ul>
+<li><p>Example: With “.”, “a.b” gets turned into a nested access
+of first field <cite>a</cite> and then field <cite>b</cite>.</p></li>
+</ul>
+</p></li>
+<li><p><strong>filters</strong> (<em>Collection</em><em>[</em><em>data_utils.filter.Filter</em><em>]</em>) – Filter functions to be applied to individual
+entries of the json file before they are collected.</p></li>
+<li><p><strong>dropped_values</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Collection</em><em>[</em><em>data_utils.data.Basic_Value_Not_None</em><em>]</em><em>]</em>) – A mapping from field name to a collection of
+values that shall be dropped from entries with that field.</p></li>
+<li><p><strong>remapped_values</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>[</em><em>data_utils.data.Basic_Value_Not_None</em><em>, </em><em>data_utils.data.Basic_Value</em><em>]</em><em>]</em>) – A mapping from field name to a dictionary
+that describes re-mappings of values within that field.</p></li>
+<li><p><strong>max_len</strong> (<em>int</em><em> | </em><em>None</em>) – The maximum number of entries to read from the json.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resulting data, as a pandas DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.fetch.fetch">
+<span class="sig-prename descclassname"><span class="pre">data_utils.fetch.</span></span><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'workspace_data-public-only.json.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('/tmp')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoded_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_if_exists</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_compressed_archive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="headerlink" href="#data_utils.fetch.fetch" title="Link to this definition"></a></dt>
+<dd><p>Download the latest data dump and save it to the given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_url</strong> (<em>str</em>) – The base URL from which to download the data.</p></li>
+<li><p><strong>target_file</strong> (<em>str</em>) – <p>The file from the base URL to download.</p>
+<ul>
+<li><p>Assumption: the file is located at <cite>base_url/target_file</cite></p></li>
+</ul>
+</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em><em> | </em><em>Path</em>) – The directory in which to save the downloaded file.</p></li>
+<li><p><strong>output_file</strong> (<em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em>) – The name of the file to download.
+By default, this is equal to <cite>target_file</cite> (without <cite>.gz</cite>, if applicable).</p></li>
+<li><p><strong>username</strong> (<em>str</em><em> | </em><em>None</em>) – The (Basic Auth) username to use for authorization.</p></li>
+<li><p><strong>password</strong> (<em>str</em><em> | </em><em>None</em>) – The (Basic Auth) password to use for authorization.</p></li>
+<li><p><strong>encoded_auth</strong> (<em>str</em><em> | </em><em>None</em>) – The already encoded username+password combination.
+If set, <cite>username</cite> and <cite>password</cite> are ignored.</p></li>
+<li><p><strong>skip_if_exists</strong> (<em>bool</em>) – <ul>
+<li><p>If set to True, skip download if the output file
+already exists.</p></li>
+<li><p>If set to False, always override any already present files.</p></li>
+</ul>
+</p></li>
+<li><p><strong>delete_compressed_archive</strong> (<em>bool</em>) – Whether to delete the compressed archive
+after it has been decompressed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The path to the (decompressed) downloaded file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Path</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.fetch.labels_from_skos">
+<span class="sig-prename descclassname"><span class="pre">data_utils.fetch.</span></span><span class="sig-name descname"><span class="pre">labels_from_skos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('prefLabel',</span> <span class="pre">'de')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('id',)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.fetch.labels_from_skos" title="Link to this definition"></a></dt>
+<dd><p>Get URIs for the given IDs by first reading a SKOS vocabulary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ids</strong> (<em>Iterable</em><em>[</em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em>) – The IDs within the vocabulary to look up.</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – The URL of the SKOS vocabulary to read.</p></li>
+<li><p><strong>multi_value</strong> (<em>bool</em><em> | </em><em>None</em>) – Whether values in ids contain multiple IDs each.
+If None, this is determined automatically.</p></li>
+<li><p><strong>label_seq</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – The sequence of fields to look up in the SKOS vocab
+in order to get to the label to return.</p></li>
+<li><p><strong>id_seq</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – The sequence of fields to look up the ID in the SKOS vocab
+in order to link to the given IDs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str | None] | list[list[str | None] | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.fetch.labels_from_uris">
+<span class="sig-prename descclassname"><span class="pre">data_utils.fetch.</span></span><span class="sig-name descname"><span class="pre">labels_from_uris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uris</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('prefLabel',</span> <span class="pre">'de')</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.fetch.labels_from_uris" title="Link to this definition"></a></dt>
+<dd><p>Get labels for the given URIs by looking up each URI.</p>
+<p>Note that this can be much slower than labels_from_skos,
+as each URI requires its own separate HTTP request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uris</strong> (<em>Iterable</em><em>[</em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em>) – The URIs to process.</p></li>
+<li><p><strong>multi_value</strong> (<em>bool</em><em> | </em><em>None</em>) – Whether values in uris contain multiple URIs each.
+If None, this is determined automatically.</p></li>
+<li><p><strong>label_seq</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – The sequence of fields to look up in the URI
+in order to get to the label to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str | None] | list[list[str | None] | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-data_utils.defaults">
+<span id="useful-defaults-e-g-for-metadata-fields"></span><h2>Useful defaults, e.g. for metadata fields<a class="headerlink" href="#module-data_utils.defaults" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_utils.defaults.</span></span><span class="sig-name descname"><span class="pre">Fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.defaults.Fields" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.COLLECTIONS">
+<span class="sig-name descname"><span class="pre">COLLECTIONS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'collections.properties.cm:title'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.COLLECTIONS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.DESCRIPTION">
+<span class="sig-name descname"><span class="pre">DESCRIPTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.cclom:general_description'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.DESCRIPTION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.EDUCATIONAL_CONTEXT">
+<span class="sig-name descname"><span class="pre">EDUCATIONAL_CONTEXT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.ccm:educationalcontext'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.EDUCATIONAL_CONTEXT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.FSK_RATING">
+<span class="sig-name descname"><span class="pre">FSK_RATING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.ccm:fskRating'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.FSK_RATING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'nodeRef.id'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.LANGUAGE">
+<span class="sig-name descname"><span class="pre">LANGUAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.cclom:general_language'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.LANGUAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.TAXONID">
+<span class="sig-name descname"><span class="pre">TAXONID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.ccm:taxonid'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.TAXONID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="data_utils.defaults.Fields.TITLE">
+<span class="sig-name descname"><span class="pre">TITLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'properties.cclom:title'</span></em><a class="headerlink" href="#data_utils.defaults.Fields.TITLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="definition-and-utilities-for-interacting-with-fundamental-data">
+<h2>Definition and utilities for interacting with fundamental data<a class="headerlink" href="#definition-and-utilities-for-interacting-with-fundamental-data" title="Link to this heading"></a></h2>
+<p id="module-data_utils.data">Module defining fundamental data types and how to interact with them.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.data.get_in">
+<span class="sig-prename descclassname"><span class="pre">data_utils.data.</span></span><span class="sig-name descname"><span class="pre">get_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nested_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catch_errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">Exception</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.data.Query_Result</span></span></span><a class="headerlink" href="#data_utils.data.get_in" title="Link to this definition"></a></dt>
+<dd><p>Recursively access a nested dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>catch_errors</strong> (<em>tuple</em><em>[</em><em>type</em><em>[</em><em>Exception</em><em>]</em><em>, </em><em>...</em><em>]</em>) – <p>Errors to catch when accessing the nested dictionary.</p>
+<ul>
+<li><p>Add KeyError to return None when a nested dictionary
+does not contain the key sequence.</p></li>
+<li><p>Add TypeError to return None when a nested dictionary ends
+before all keys have been used up.</p></li>
+</ul>
+</p></li>
+<li><p><strong>nested_dict</strong> (<em>data_utils.data.Nested_Dict</em>) – </p></li>
+<li><p><strong>keys</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.data.Query_Result</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.data.get_leaves">
+<span class="sig-prename descclassname"><span class="pre">data_utils.data.</span></span><span class="sig-name descname"><span class="pre">get_leaves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nested_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.data.get_leaves" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nested_dict</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>set[tuple[str, …]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.data.get_terminal_in">
+<span class="sig-prename descclassname"><span class="pre">data_utils.data.</span></span><span class="sig-name descname"><span class="pre">get_terminal_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nested_dict:</span> <span class="pre">data_utils.data.Nested_Dict,</span> <span class="pre">keys:</span> <span class="pre">~collections.abc.Sequence[str],</span> <span class="pre">catch_errors:</span> <span class="pre">tuple[type[Exception],</span> <span class="pre">...]</span> <span class="pre">=</span> <span class="pre">(&lt;class</span> <span class="pre">'KeyError'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'TypeError'&gt;)</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.data.Terminal_Value</span></span></span><a class="headerlink" href="#data_utils.data.get_terminal_in" title="Link to this definition"></a></dt>
+<dd><p>Like get_in, but replace non-terminal results with None and flatten nested lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nested_dict</strong> (<em>data_utils.data.Nested_Dict</em>) – </p></li>
+<li><p><strong>keys</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>catch_errors</strong> (<em>tuple</em><em>[</em><em>type</em><em>[</em><em>Exception</em><em>]</em><em>, </em><em>...</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.data.Terminal_Value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utilities-for-filtering-individual-fundamental-data-points">
+<h2>Utilities for filtering individual fundamental data points<a class="headerlink" href="#utilities-for-filtering-individual-fundamental-data-points" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-data_utils.filters">
+<dt class="sig sig-object py" id="data_utils.filters.existing_text_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">existing_text_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#data_utils.filters.existing_text_filter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.german_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">german_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#data_utils.filters.german_filter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate_fun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Terminal_Value</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.filters.get_filter" title="Link to this definition"></a></dt>
+<dd><p>Create a filter that returns true iff the given predicate function
+evaluates to True for the value at the given key sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicate_fun</strong> (<em>Callable</em><em>[</em><em>[</em><em>data_utils.data.Terminal_Value</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>key_separator</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Callable</em>[[data_utils.data.Nested_Dict], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_filter_with_basic_predicate">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_filter_with_basic_predicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate_fun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Basic_Value</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_value_semantics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.filters.get_filter_with_basic_predicate" title="Link to this definition"></a></dt>
+<dd><p>Convenience function to create filters from predicate functions on basic values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicate_fun</strong> (<em>Callable</em><em>[</em><em>[</em><em>data_utils.data.Basic_Value</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+<li><p><strong>key</strong> (<em>str</em>) – </p></li>
+<li><p><strong>multi_value_semantics</strong> (<em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>bool</em><em>]</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+<li><p><strong>key_separator</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Callable</em>[[data_utils.data.Nested_Dict], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_labeled_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_labeled_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fields:</span> <span class="pre">~collections.abc.Collection[str],</span> <span class="pre">key_separator:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'.',</span> <span class="pre">multi_field_semantics:</span> <span class="pre">~collections.abc.Callable[[~typing.Iterable[bool]],</span> <span class="pre">bool]</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">any&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.filter.Filter</span></span></span><a class="headerlink" href="#data_utils.filters.get_labeled_filter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields</strong> (<em>Collection</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>key_separator</strong> (<em>str</em>) – </p></li>
+<li><p><strong>multi_field_semantics</strong> (<em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>bool</em><em>]</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.filter.Filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_language_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_language_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accepted_languages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.filter.Filter</span></span></span><a class="headerlink" href="#data_utils.filters.get_language_filter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>accepted_languages</strong> (<em>Collection</em><em>[</em><em>str</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.filter.Filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_len_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_len_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fields:</span> <span class="pre">~collections.abc.Collection[str],</span> <span class="pre">min_lengths:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">~collections.abc.Collection[int],</span> <span class="pre">key_separator:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'.',</span> <span class="pre">multi_field_semantics:</span> <span class="pre">~collections.abc.Callable[[~typing.Iterable[bool]],</span> <span class="pre">bool]</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">any&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.filter.Filter</span></span></span><a class="headerlink" href="#data_utils.filters.get_len_filter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields</strong> (<em>Collection</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>min_lengths</strong> (<em>int</em><em> | </em><em>Collection</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>key_separator</strong> (<em>str</em>) – </p></li>
+<li><p><strong>multi_field_semantics</strong> (<em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>bool</em><em>]</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.filter.Filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_predicate_on_terminal">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_predicate_on_terminal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simple_predicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Basic_Value</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_value_semantics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">data_utils.data.Terminal_Value</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.filters.get_predicate_on_terminal" title="Link to this definition"></a></dt>
+<dd><p>Create a predicate function that acts on a terminal value from one
+that acts on basic values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>simple_predicate</strong> (<em>Callable</em><em>[</em><em>[</em><em>data_utils.data.Basic_Value</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+<li><p><strong>multi_value_semantics</strong> (<em>Callable</em><em>[</em><em>[</em><em>Iterable</em><em>[</em><em>bool</em><em>]</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Callable</em>[[data_utils.data.Terminal_Value], bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.get_test_data_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">get_test_data_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">included_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.filter.Filter</span></span></span><a class="headerlink" href="#data_utils.filters.get_test_data_filter" title="Link to this definition"></a></dt>
+<dd><p>Get a filter that only include test data according to the given test data labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>included_labels</strong> (<em>Iterable</em><em>[</em><em>str</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.filter.Filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.kibana_basic_filter">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">kibana_basic_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#data_utils.filters.kibana_basic_filter" title="Link to this definition"></a></dt>
+<dd><p>The ‘Basic Filter’ from Kibana.</p>
+<p>This filters rejects all data that we probably don’t want,
+e.g. those that are in another dataset or do not represent a material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.kibana_publicly_visible">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">kibana_publicly_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#data_utils.filters.kibana_publicly_visible" title="Link to this definition"></a></dt>
+<dd><p>Only accepts data that is publicly visible.</p>
+<p>This may be because the data is explicitly set to be public,
+or because it is contained within a collection that is public.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.kibana_redaktionsbuffet">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">kibana_redaktionsbuffet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.data.Nested_Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#data_utils.filters.kibana_redaktionsbuffet" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<em>data_utils.data.Nested_Dict</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.filters.negated">
+<span class="sig-prename descclassname"><span class="pre">data_utils.filters.</span></span><span class="sig-name descname"><span class="pre">negated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">data_utils.filter.Filter</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">data_utils.filter.Filter</span></span></span><a class="headerlink" href="#data_utils.filters.negated" title="Link to this definition"></a></dt>
+<dd><p>Return a new filter that evaluates to the opposite of the given one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>_filter</strong> (<em>data_utils.filter.Filter</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_utils.filter.Filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utilities-for-transforming-values-in-fundamental-data">
+<h2>Utilities for transforming values in fundamental data<a class="headerlink" href="#utilities-for-transforming-values-in-fundamental-data" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-data_utils.transform">
+<dt class="sig sig-object py" id="data_utils.transform.as_boolean_array">
+<span class="sig-prename descclassname"><span class="pre">data_utils.transform.</span></span><span class="sig-name descname"><span class="pre">as_boolean_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BoolDType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.transform.as_boolean_array" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>Collection</em><em>[</em><em>Collection</em><em>[</em><em>T</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>sort_fn</strong> (<em>Callable</em><em>[</em><em>[</em><em>list</em><em>[</em><em>T</em><em>]</em><em>]</em><em>, </em><em>list</em><em>[</em><em>T</em><em>]</em><em>] </em><em>| </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[<em>ndarray</em>[<em>Any</em>, <em>BoolDType</em>], list[<em>T</em>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.transform.change_multi_value">
+<span class="sig-prename descclassname"><span class="pre">data_utils.transform.</span></span><span class="sig-name descname"><span class="pre">change_multi_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subtree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_remap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.transform.change_multi_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subtree</strong> (<em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em> | </em><em>data_utils.data.Nested_Dict</em><em> | </em><em>list</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em> | </em><em>data_utils.data.Nested_Dict</em><em>]</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>to_drop</strong> (<em>Collection</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>to_remap</strong> (<em>dict</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str | int | float | None | dict[str, str | int | float | None | data_utils.data.Nested_Dict | list[str | int | float | None | data_utils.data.Nested_Dict]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.transform.change_single_value">
+<span class="sig-prename descclassname"><span class="pre">data_utils.transform.</span></span><span class="sig-name descname"><span class="pre">change_single_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_remap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#data_utils.transform.change_single_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>to_drop</strong> (<em>Collection</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>to_remap</strong> (<em>dict</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | int | float | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="data_utils.transform.with_changed_value">
+<span class="sig-prename descclassname"><span class="pre">data_utils.transform.</span></span><span class="sig-name descname"><span class="pre">with_changed_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_remap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">data_utils.data.Nested_Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#data_utils.transform.with_changed_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entry</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em> | </em><em>data_utils.data.Nested_Dict</em><em> | </em><em>list</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em> | </em><em>data_utils.data.Nested_Dict</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>keys</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>to_drop</strong> (<em>Collection</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>to_remap</strong> (<em>dict</em><em>[</em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>float</em><em> | </em><em>None</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str | int | float | None | data_utils.data.Nested_Dict | list[str | int | float | None | data_utils.data.Nested_Dict]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to data-utils’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data_utils.default_pipelines.html" class="btn btn-neutral float-right" title="Pre-built pipelines to quickly get started with data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1980, IT&#39;s Jointly.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
