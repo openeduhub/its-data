@@ -10,8 +10,8 @@ Welcome to data-utils's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   data_utils
-   data_utils.default_pipelines
+   its_data
+   its_data.default_pipelines
 
 
 

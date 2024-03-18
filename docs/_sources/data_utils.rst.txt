@@ -4,7 +4,7 @@ Core functionality
 
 Downloading content from the internet
 -------------------------------------
-.. automodule:: data_utils.fetch
+.. automodule:: its_data.fetch
    :members:
    :undoc-members:
    :show-inheritance:
@@ -13,7 +13,7 @@ Downloading content from the internet
 Useful defaults, e.g. for metadata fields
 -----------------------------------------
 
-.. automodule:: data_utils.defaults
+.. automodule:: its_data.defaults
    :members:
    :undoc-members:
    :show-inheritance:
@@ -21,7 +21,7 @@ Useful defaults, e.g. for metadata fields
       
 Definition and utilities for interacting with fundamental data
 -------------------
-.. automodule:: data_utils.data
+.. automodule:: its_data.data
    :members:
    :undoc-members:
    :show-inheritance:
@@ -29,7 +29,7 @@ Definition and utilities for interacting with fundamental data
       
 Utilities for filtering individual fundamental data points
 -------------------
-.. automodule:: data_utils.filters
+.. automodule:: its_data.filters
    :members:
    :undoc-members:
    :show-inheritance:
@@ -37,7 +37,7 @@ Utilities for filtering individual fundamental data points
 
 Utilities for transforming values in fundamental data
 -------------------
-.. automodule:: data_utils.transform
+.. automodule:: its_data.transform
    :members:
    :undoc-members:
    :show-inheritance:
