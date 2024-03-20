@@ -313,7 +313,7 @@ is editorially confirmed.</p>
 <dt class="sig sig-object py" id="its_data.default_pipelines.data.Processed_Data.from_data">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#its_data.default_pipelines.data.Data" title="its_data.default_pipelines.data.Data"><span class="pre">Data</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline_generators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Pipeline_Generator</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#its_data.default_pipelines.data.Processed_Data" title="its_data.default_pipelines.data.Processed_Data"><span class="pre">Processed_Data</span></a></span></span><a class="headerlink" href="#its_data.default_pipelines.data.Processed_Data.from_data" title="Link to this definition"></a></dt>
 <dd><p>Turn an unprocessed corpus into a processed one.</p>
-<p>This utilizes the nlprep library for tokenization and pre-processing.
+<p>This utilizes the its_prep library for tokenization and pre-processing.
 Note that this may take a long time for decently large corpuses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -321,7 +321,7 @@ Note that this may take a long time for decently large corpuses.</p>
 <li><p><strong>data</strong> (<a class="reference internal" href="#its_data.default_pipelines.data.Data" title="its_data.default_pipelines.data.Data"><em>Data</em></a>) – The text corpus to pre-process.</p></li>
 <li><p><strong>pipeline_generators</strong> (<em>Iterable</em><em>[</em><em>Pipeline_Generator</em><em>]</em>) – Pipelines to iteratively apply to the
 corpus, in order to filter out unwanted tokens.
-See the nlprep library for more details.</p></li>
+See the its_prep library for more details.</p></li>
 <li><p><strong>cache_dir</strong> (<em>Path</em><em> | </em><em>None</em>) – The path to the directory that shall contain a cache
 of all the pre-processed texts. Useful when identical texts may be
 processed multiple times.</p></li>

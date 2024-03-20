@@ -41,3 +41,10 @@ Utilities for transforming values in fundamental data
    :members:
    :undoc-members:
    :show-inheritance:
+      
+Definitions of various evaluation pipelines, e.g. for flat or hierarchical classification
+-------------------
+.. automodule:: its_data.evaluation
+   :members:
+   :undoc-members:
+   :show-inheritance:
